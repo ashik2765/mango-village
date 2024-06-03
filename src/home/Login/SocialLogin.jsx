@@ -1,10 +1,28 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../../firebase/AuthProvider';
+import toast from 'react-hot-toast';
 
 export default function SocialLogin() {
     const { googleSignIn } = useContext(AuthContext);
     const handleGoogleLogin = () => {
-        googleSignIn();
+        googleSignIn().then((data) => {
+            if (data?.user?.email) {
+                const userInfo = {
+                    email: data?.user?.email,
+                    name: data?.user?.displayName
+                }
+                fetch('http://localhost:5000/user', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                }).then(res => res.json())
+                    .then(() => {
+                        toast.success("user saved in Database")
+                    })
+            }
+        })
 
     };
 

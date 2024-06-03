@@ -1,6 +1,4 @@
 import ProductCard from './ProductCard';
-import { useLoaderData } from 'react-router-dom';
-
 export default function AllProduct({products}) {
 
     return (
@@ -10,7 +8,7 @@ export default function AllProduct({products}) {
             </h2>
             <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 {
-                    products.map(item => <ProductCard key={item._id} mango={item}></ProductCard>)
+                    products.slice(0,4).map(item => <ProductCard key={item._id} mango={item}></ProductCard>)
                 }
             </div>
         </div>

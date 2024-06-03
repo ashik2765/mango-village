@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom'
 export default function Navbar() {
     const navOption = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link>Shop</Link></li>
+        <li><Link to="/shop">Shop</Link></li>
         <li><Link to="/dashboard">Dashboard</Link></li>
         <li><Link>Blog</Link></li>
-
     </>
     return (
         <div className="navbar bg-yellow-100 shadow-md">

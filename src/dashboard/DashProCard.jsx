@@ -27,7 +27,7 @@ export default function DashProCard({ product, onDelete }) {
                 <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
                 <p className="mt-2 text-gray-700">$ {price} per/kg</p>
                 <button className="mt-4 bg-yellow-500 text-white py-2 px-4 mx-2 rounded-full hover:bg-yellow-600 transition duration-300">
-                    <Link>See Details</Link>
+                    <Link to={`/product/${_id}`}>See Details</Link>
                 </button>
                 <button className="mt-4 bg-yellow-500 text-white py-2 px-5 mx-2 rounded-full hover:bg-yellow-600 transition duration-300">
                     <Link to={`/dashboard/edit/${_id}`}>Edit</Link>

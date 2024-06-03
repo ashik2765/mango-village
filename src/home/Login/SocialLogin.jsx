@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../firebase/AuthProvider';
 
 export default function SocialLogin() {
-
+    const { googleSignIn } = useContext(AuthContext);
     const handleGoogleLogin = () => {
-        // Add logic to handle Google login
-        console.log('Google login clicked');
+        googleSignIn();
+
     };
 
     const handleFacebookLogin = () => {
@@ -14,7 +15,7 @@ export default function SocialLogin() {
     return (
         <div className="mt-4 flex justify-center space-x-4">
             <button
-                onClick={() => console.log('Google register clicked')}
+                onClick={handleGoogleLogin}
                 className="flex items-center justify-center bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600 transition duration-300"
             >
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M23.76 12.21c0-.77-.07-1.51-.2-2.22H12v4.2h6.61a5.67 5.67 0 0 1-2.46 3.72v3.09h3.95a11.94 11.94 0 0 0 3.66-8.79z" /><path d="M12 24c3.24 0 5.95-1.07 7.93-2.88l-3.95-3.09a7.44 7.44 0 0 1-11.14-4.36H1.76v3.15A11.99 11.99 0 0 0 12 24z" /><path d="M4.86 14.66a7.45 7.45 0 0 1 0-4.32V7.19H1.76v3.15A11.99 11.99 0 0 0 12 24z" /><path d="M12 4.74a6.54 6.54 0 0 1 4.63 1.81l3.47-3.47A11.93 11.93 0 0 0 12 0a11.99 11.99 0 0 0-10.24 5.99l3.1 2.15A7.41 7.41 0 0 1 12 4.74z" /></svg>

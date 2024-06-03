@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import SocialLogin from './SocialLogin';
+import { AuthContext } from '../../firebase/AuthProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Login() {
+    const { logIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/'
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,8 +22,17 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add logic to handle login, e.g., sending data to the backend
-        console.log('Login submitted:', { email, password });
+
+        logIn(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+
+                setError(error.message);
+            })
     };
 
     return (

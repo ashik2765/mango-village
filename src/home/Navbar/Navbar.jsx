@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../firebase/AuthProvider'
 
 export default function Navbar() {
+    const { user, logOut} = useContext(AuthContext);
     const navOption = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/shop">Shop</Link></li>
@@ -28,10 +30,25 @@ export default function Navbar() {
                     {navOption}
                 </ul>
             </div>
+            <div>
+
+            </div>
             <div className="navbar-end">
-                <Link to="login" className="btn bg-yellow-500 text-white hover:bg-yellow-600 transition duration-300">
-                    Login
-                </Link>
+                {user ? <>
+                    <div className="avatar me-5">
+                        <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <img src={user?.photoURL} />
+                        </div>
+                    </div>
+                    <Link to="login" onClick={() => logOut()} className="btn bg-yellow-500 text-white hover:bg-yellow-600 transition duration-300">
+                        Logout
+                    </Link>
+                </> : <>
+                    <Link to="login" className="btn bg-yellow-500 text-white hover:bg-yellow-600 transition duration-300">
+                        Login
+                    </Link>
+                </>}
+
             </div>
         </div>
     )

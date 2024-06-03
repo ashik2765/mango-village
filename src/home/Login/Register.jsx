@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import SocialLogin from './SocialLogin';
+import { AuthContext } from '../../firebase/AuthProvider';
 
 export default function Register() {
-
+    const { createUser } = useContext(AuthContext);
+    const [Error, setError] = useState(null);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -20,8 +22,22 @@ export default function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add logic to handle registration, e.g., sending data to the backend
-        console.log('Registration submitted:', formData);
+        const { email, password, confirmPassword } = formData;
+        if (password == confirmPassword) {
+            createUser(email, password)
+                .then(result => {
+                    const createdUser = result.user;
+                    console.log(createdUser);
+
+                })
+                .catch(error => {
+                    console.log(error.message);
+                })
+        }
+        else {
+            setError("password not matched")
+        }
+
     };
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -75,6 +91,7 @@ export default function Register() {
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required
                         />
+                        <p>{Error}</p>
                     </div>
                     <div className="text-center">
                         <button

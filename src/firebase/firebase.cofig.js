@@ -6,12 +6,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCvDBGCkmdo_4cIq2PzOc75eVCebkF5WB8",
-  authDomain: "mongo-village.firebaseapp.com",
-  projectId: "mongo-village",
-  storageBucket: "mongo-village.appspot.com",
-  messagingSenderId: "713741844586",
-  appId: "1:713741844586:web:2af29ff0eb058f4ea34a13"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
 // Initialize Firebase

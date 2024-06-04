@@ -12,6 +12,8 @@ import AddProduct from "../dashboard/AddProduct";
 import AllProducts from "../dashboard/AllProducts";
 import EditProduct from "../dashboard/EditProduct";
 import Shop from "../home/Home/Shop";
+import EditUserInfo from "../dashboard/EditUserInfo";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -45,7 +47,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "dashboard",
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
                 index: true,
@@ -60,6 +62,10 @@ export const router = createBrowserRouter([
                 element: <EditProduct></EditProduct>,
                 loader: ({ params }) => fetch(`http://localhost:5000/mangos/${params.id}`)
 
+            },
+            {
+                path: "profile/edit/:id",
+                element: <EditUserInfo></EditUserInfo>
             },
             {
                 path: "addproduct",

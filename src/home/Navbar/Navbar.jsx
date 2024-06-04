@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../firebase/AuthProvider'
 
 export default function Navbar() {
-    const { user, logOut} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const navOption = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/shop">Shop</Link></li>
         <li><Link to="/dashboard">Dashboard</Link></li>
         <li><Link>Blog</Link></li>
     </>
+    const handleLogout = async () => {
+        await logOut()
+    };
     return (
         <div className="navbar bg-yellow-100 shadow-md">
             <div className="navbar-start">
@@ -34,20 +37,21 @@ export default function Navbar() {
 
             </div>
             <div className="navbar-end">
-                {user ? <>
+                {user && <>
                     <div className="avatar me-5">
                         <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             <img src={user?.photoURL} />
                         </div>
                     </div>
-                    <Link to="login" onClick={() => logOut()} className="btn bg-yellow-500 text-white hover:bg-yellow-600 transition duration-300">
+                    <Link to="login" onClick={handleLogout} className="btn bg-yellow-500 text-white hover:bg-yellow-600 transition duration-300">
                         Logout
                     </Link>
-                </> : <>
-                    <Link to="login" className="btn bg-yellow-500 text-white hover:bg-yellow-600 transition duration-300">
+                </>}
+                {
+                    !user && <Link to="login" className="btn bg-yellow-500 text-white hover:bg-yellow-600 transition duration-300">
                         Login
                     </Link>
-                </>}
+                }
 
             </div>
         </div>

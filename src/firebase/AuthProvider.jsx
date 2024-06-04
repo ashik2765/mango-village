@@ -7,36 +7,41 @@ const Auth = getAuth(app);
 
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
 
     const googleProvider = new GoogleAuthProvider();
 
     const googleSignIn = () => {
+        setLoading(true)
         return signInWithPopup(Auth, googleProvider);
     };
     const createUser = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(Auth, email, password)
     };
     const logIn = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(Auth, email, password)
     };
-    const logOut = () => {
-        setLoading(true)
-        return signOut(Auth)
+    const logOut = async() => {
+        return await signOut(Auth).then(() => setUser(null))
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(Auth, (currentUser) => {
+        const unscubcribe = onAuthStateChanged(Auth, (currentUser) => {
             if (currentUser) {
-                setUser(currentUser)
+                setUser(currentUser);
+                setLoading(false);
+            } else {
+                setLoading(false);
             }
-            return () => {
-                return unsubscribe();
-            }
-        })
+        });
+        return () => {
+            return unscubcribe();
+        };
     }, []);
 
-    const authInfo = { Auth, googleSignIn, createUser, logIn, logOut, user,loading };
+    const authInfo = { Auth,user, googleSignIn, createUser, logIn, logOut, loading };
 
     return (
         <AuthContext.Provider value={authInfo}>

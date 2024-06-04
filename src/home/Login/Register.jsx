@@ -1,33 +1,44 @@
 import React, { useContext, useState } from 'react'
 import SocialLogin from './SocialLogin';
 import { AuthContext } from '../../firebase/AuthProvider';
+import toast from 'react-hot-toast';
 
 export default function Register() {
     const { createUser } = useContext(AuthContext);
     const [Error, setError] = useState(null);
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-    });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { email, password, confirmPassword } = formData;
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+
+
+
         if (password == confirmPassword) {
             createUser(email, password)
-                .then(result => {
-                    const createdUser = result.user;
-                    console.log(createdUser);
+                .then(data => {
+                    if (data?.user?.email) {
+                        const userInfo = {
+                            email: data?.user?.email,
+                            name: name
+                        }
+                        fetch('http://localhost:5000/user', {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(userInfo)
+                        }).then(res => res.json())
+                            .then(() => {
+                                toast.success("user saved in Database")
+                            })
+                    }
 
                 })
                 .catch(error => {
@@ -45,13 +56,10 @@ export default function Register() {
                 <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-semibold mb-2" htmlFor="username">Username</label>
+                        <label className="block text-gray-700 font-semibold mb-2" htmlFor="username">Name</label>
                         <input
                             type="text"
-                            id="username"
-                            name="username"
-                            value={formData.username}
-                            onChange={handleChange}
+                            name="name"
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required
                         />
@@ -60,10 +68,7 @@ export default function Register() {
                         <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">Email</label>
                         <input
                             type="email"
-                            id="email"
                             name="email"
-                            value={formData.email}
-                            onChange={handleChange}
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required
                         />
@@ -72,10 +77,7 @@ export default function Register() {
                         <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">Password</label>
                         <input
                             type="password"
-                            id="password"
                             name="password"
-                            value={formData.password}
-                            onChange={handleChange}
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required
                         />
@@ -84,10 +86,7 @@ export default function Register() {
                         <label className="block text-gray-700 font-semibold mb-2" htmlFor="confirmPassword">Confirm Password</label>
                         <input
                             type="password"
-                            id="confirmPassword"
                             name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required
                         />

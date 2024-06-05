@@ -12,7 +12,7 @@ export default function AddProduct() {
 
         const data = { name, price, description, image }
         
-        await fetch('http://localhost:5000/mangos', {
+        await fetch('https://mangoserver.onrender.com/mangos', {
             method: "POST",
             headers: {
                 "content-type": "application/json"

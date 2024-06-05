@@ -1,5 +1,6 @@
 import ProductCard from './ProductCard';
 export default function AllProduct({products}) {
+    console.log(products);
 
     return (
         <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">

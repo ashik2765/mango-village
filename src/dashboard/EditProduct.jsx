@@ -16,7 +16,7 @@ export default function EditProduct() {
         const image = form.image.value;
 
         const data = { name, price, description, image }
-        await fetch(`http://localhost:5000/mangos/${_id}`, {
+        await fetch(`https://mangoserver.onrender.com/mangos/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json"

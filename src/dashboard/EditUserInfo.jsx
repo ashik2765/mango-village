@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../firebase/AuthProvider'
+import { useLoaderData } from 'react-router-dom';
 
 export default function EditUserInfo() {
     const { user } = useContext(AuthContext);
+    const data = useLoaderData();
+    console.log(data);
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -12,6 +15,7 @@ export default function EditUserInfo() {
         const address = form.address.value;
         const userData = { name, phone, photoURL, address }
         console.log(userData);
+        
     }
     return (
         <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">
@@ -23,6 +27,7 @@ export default function EditUserInfo() {
                         <input
                             type="text"
                             name="name"
+                            defaultValue={data?.name}
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required
                         />
@@ -32,7 +37,7 @@ export default function EditUserInfo() {
                         <input
                             type="email"
                             name="email"
-                            defaultValue={user?.email}
+                            defaultValue={data?.email}
                             disabled
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required

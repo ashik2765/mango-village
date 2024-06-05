@@ -28,7 +28,7 @@ export default function Register() {
                             email: data?.user?.email,
                             name: name
                         }
-                        fetch('http://localhost:5000/user', {
+                        fetch('https://mangoserver.onrender.com/user', {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"

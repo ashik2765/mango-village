@@ -11,7 +11,7 @@ export default function SocialLogin() {
                     email: data?.user?.email,
                     name: data?.user?.displayName
                 }
-                fetch('http://localhost:5000/user', {
+                fetch('https://mangoserver.onrender.com/user', {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"

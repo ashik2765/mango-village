@@ -14,7 +14,7 @@ export default function EditUserInfo() {
         const address = form.address.value;
         const userData = { name, phone, photoURL, address, email: data?.email }
         console.log(userData);
-        fetch(`http://localhost:5000/user/${data._id}`, {
+        fetch(`https://mangoserver.onrender.com/user/${data._id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json"

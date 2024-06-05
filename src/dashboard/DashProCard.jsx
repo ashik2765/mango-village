@@ -8,7 +8,7 @@ export default function DashProCard({ product, onDelete }) {
     const handleDelete = async () => {
         const token = localStorage.getItem('token')
 
-        await fetch(`http://localhost:5000/mangos/${_id}`, {
+        await fetch(`https://mangoserver.onrender.com/mangos/${_id}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",

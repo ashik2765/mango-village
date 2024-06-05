@@ -6,7 +6,7 @@ export default function AllProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('https://mangoserver.onrender.com/mangos')
+    fetch('http://localhost:5000/mangos')
       .then(res => res.json())
       .then(data => setProducts(data))
   }, []);

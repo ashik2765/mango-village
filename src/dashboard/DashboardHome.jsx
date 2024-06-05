@@ -7,7 +7,7 @@ export default function DashboardHome() {
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
-    fetch(`https://mangoserver.onrender.com/user/${user?.email}`)
+    fetch(`http://localhost:5000/user/${user?.email}`)
       .then(res => res.json())
       .then(data => setUserInfo(data))
   }, [user]);

@@ -23,17 +23,17 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
-                loader: () => fetch('https://mangoserver.onrender.com/mangos')
+                loader: () => fetch('http://localhost:5000/mangos')
             },
             {
                 path: "shop",
                 element: <Shop></Shop>,
-                loader: () => fetch('https://mangoserver.onrender.com/mangos')
+                loader: () => fetch('http://localhost:5000/mangos')
             },
             {
                 path: "product/:id",
                 element: <ProductDetails></ProductDetails>,
-                loader: ({ params }) => fetch(`https://mangoserver.onrender.com/mangos/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/mangos/${params.id}`)
             },
             {
                 path: "login",
@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
             {
                 path: "edit/:id",
                 element: <EditProduct></EditProduct>,
-                loader: ({ params }) => fetch(`https://mangoserver.onrender.com/mangos/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/mangos/${params.id}`)
 
             },
             {

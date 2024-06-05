@@ -6,8 +6,9 @@ export default function EditProduct() {
 
     const data = useLoaderData();
     const { _id } = data;
-    
+
     const handleSubmit = async (e) => {
+        const token = localStorage.getItem('token')
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
@@ -16,15 +17,16 @@ export default function EditProduct() {
         const image = form.image.value;
 
         const data = { name, price, description, image }
-        await fetch(`https://mangoserver.onrender.com/mangos/${_id}`, {
+        await fetch(`http://localhost:5000/mangos/${_id}`, {
             method: "PATCH",
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
         })
             .then(res => res.json())
-            .then(() =>{
+            .then(() => {
                 toast.success('Product Updated')
             })
     }

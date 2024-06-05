@@ -11,14 +11,15 @@ export default function SocialLogin() {
                     email: data?.user?.email,
                     name: data?.user?.displayName
                 }
-                fetch('https://mangoserver.onrender.com/user', {
+                fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
                     },
                     body: JSON.stringify(userInfo)
                 }).then(res => res.json())
-                    .then(() => {
+                    .then((data) => {
+                        localStorage.setItem('token', data?.token)
                         toast.success("user saved in Database")
                     })
             }

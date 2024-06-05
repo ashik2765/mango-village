@@ -2,7 +2,9 @@ import React from 'react'
 import toast from 'react-hot-toast';
 
 export default function AddProduct() {
+    
     const handleSubmit = async (e) => {
+        const token = localStorage.getItem('token')
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
@@ -11,15 +13,16 @@ export default function AddProduct() {
         const image = form.image.value;
 
         const data = { name, price, description, image }
-        
-        await fetch('https://mangoserver.onrender.com/mangos', {
+
+        await fetch('http://localhost:5000/mangos', {
             method: "POST",
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
+                authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data)
         }).then(res => res.json())
-            .then(()=> {
+            .then(() => {
                 toast.success("Add a product successfully")
                 form.reset();
             })

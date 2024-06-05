@@ -18,7 +18,7 @@ export default function DashboardHome() {
           <h1 className="text-2xl font-semibold text-white">User Dashboard</h1>
         </div>
         <div className="flex items-center p-6">
-          <img className="w-24 h-24 rounded-full object-cover mr-6" src={userInfo?.image} />
+          <img className="w-24 h-24 rounded-full object-cover mr-6" src={userInfo?.photoURL} />
           <div>
             <h2 className="text-xl font-bold text-gray-900">{userInfo?.name}</h2>
             <p className="text-gray-600">{userInfo?.email}</p>

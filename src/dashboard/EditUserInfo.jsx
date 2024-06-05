@@ -3,9 +3,8 @@ import { AuthContext } from '../firebase/AuthProvider'
 import { useLoaderData } from 'react-router-dom';
 
 export default function EditUserInfo() {
-    const { user } = useContext(AuthContext);
     const data = useLoaderData();
-    console.log(data);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -13,9 +12,18 @@ export default function EditUserInfo() {
         const phone = form.phone.value;
         const photoURL = form.imageURL.value;
         const address = form.address.value;
-        const userData = { name, phone, photoURL, address }
+        const userData = { name, phone, photoURL, address, email: data?.email }
         console.log(userData);
-        
+        fetch(`http://localhost:5000/user/${data._id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+
     }
     return (
         <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">
@@ -57,6 +65,7 @@ export default function EditUserInfo() {
                         <input
                             type="text"
                             name="imageURL"
+                            defaultValue={data?.photoURL}
                             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             required
                         />
